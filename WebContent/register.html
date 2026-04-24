@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register - Complaint System</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>Student Registration</h2>
+      <a href="index.html">Back to Home</a>
+    </div>
+    <form action="RegisterServlet" method="POST" onsubmit="return validateForm()">
+      
+      <div class="form-group">
+        <label>First Name:</label> 
+        <input type="text" name="firstName" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Last Name:</label> 
+        <input type="text" name="lastName" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Roll Number:</label> 
+        <input type="text" id="rollNo" name="rollNo" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Branch:</label>
+        <select name="branch" required>
+          <option value="">--Select--</option>
+          <option>CSE</option>
+          <option>ECE</option>
+          <option>IT</option>
+          <option>ME</option>
+          <option>EEE</option>
+          <option>Civil</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>Year:</label>
+        <select name="year" required>
+          <option value="">--Select--</option>
+          <option value="1">1</option> 
+          <option value="2">2</option>
+          <option value="3">3</option> 
+          <option value="4">4</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>Email:</label> 
+        <input type="email" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Phone:</label> 
+        <input type="text" id="phone" name="phone" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Password:</label> 
+        <input type="password" id="pw1" name="password" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Confirm Password:</label> 
+        <input type="password" id="pw2" name="confirmPassword" required>
+      </div>
+      
+      <button type="submit" class="btn">Register</button>
+    </form>
+    
+    <br><hr><br>
+    <a href="login.html">Already registered? Login here.</a>
+  </div>
+  
+  <script>
+    function validateForm() {
+      // Basic checks for novice level
+      var roll = document.getElementById("rollNo").value;
+      if(roll.trim().length < 5) { alert("Please enter a valid Roll No."); return false; }
+      
+      var phone = document.getElementById("phone").value;
+      if(phone.length !== 10) { alert("Phone must be exactly 10 digits."); return false; }
+      
+      var p1 = document.getElementById("pw1").value;
+      var p2 = document.getElementById("pw2").value;
+      if(p1.length < 6) { alert("Password must be at least 6 characters."); return false; }
+      if(p1 !== p2) { alert("Passwords do not match."); return false; }
+      
+      return true; // Submits if everything is OK
+    }
+  </script>
+</body>
+</html>

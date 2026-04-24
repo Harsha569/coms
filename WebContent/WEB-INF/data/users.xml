@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <!-- Default admin account (username: admin, password: admin123) -->
+  <user>
+    <id>ADMIN001</id>
+    <firstName>Admin</firstName>
+    <lastName>VNRVJIET</lastName>
+    <rollNo>admin</rollNo>
+    <branch>Administration</branch>
+    <year>0</year>
+    <email>admin@vnrvjiet.in</email>
+    <phone>0000000000</phone>
+    <password>admin123</password>
+    <role>admin</role>
+  </user>
+</users>

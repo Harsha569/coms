@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - Complaint System</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>Login</h2>
+      <a href="index.html">Back to Home</a>
+    </div>
+    
+    <form action="LoginServlet" method="POST">
+      <div class="form-group">
+        <label>Account Type:</label>
+        <select name="role">
+          <option value="student">Student</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Username / Roll No:</label>
+        <input type="text" name="identifier" required>
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" name="password" required>
+      </div>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    
+    <br><hr><br>
+    <a href="register.html">Don't have a student account? Register here.</a>
+  </div>
+</body>
+</html>
