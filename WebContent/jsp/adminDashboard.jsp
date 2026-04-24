@@ -31,7 +31,14 @@
     <% } %>
 
     <h3>All Complaints</h3>
-    <table border="1">
+    <select id="statusFilter" onchange="filterByStatus()" style="margin-bottom: 10px; padding: 5px; width: 100%; max-width: 300px;">
+      <option value="">All Statuses</option>
+      <option value="PENDING">Pending</option>
+      <option value="IN PROGRESS">In Progress</option>
+      <option value="RESOLVED">Resolved</option>
+      <option value="REJECTED">Rejected</option>
+    </select>
+    <table border="1" id="complaintsTable">
       <tr>
         <th>ID</th>
         <th>Student</th>
@@ -58,5 +65,25 @@
          } %>
     </table>
   </div>
+  <script>
+    function filterByStatus() {
+      var select, filter, table, tr, td, i, txtValue;
+      select = document.getElementById("statusFilter");
+      filter = select.value.toUpperCase();
+      table = document.getElementById("complaintsTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 1; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (filter === "" || txtValue.toUpperCase() === filter) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
 </body>
 </html>
