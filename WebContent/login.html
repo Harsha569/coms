@@ -11,6 +11,10 @@
       <a href="index.html">Back to Home</a>
     </div>
     
+    <div id="error-message" class="msg-error" style="display: none;">
+      Invalid password. Please try again.
+    </div>
+    
     <form action="LoginServlet" method="POST">
       <div class="form-group">
         <label>Account Type:</label>
@@ -33,5 +37,14 @@
     <br><hr><br>
     <a href="register.html">Don't have a student account? Register here.</a>
   </div>
+
+  <script>
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('error')) {
+        document.getElementById('error-message').style.display = 'block';
+      }
+    };
+  </script>
 </body>
 </html>

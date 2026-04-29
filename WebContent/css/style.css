@@ -1,14 +1,19 @@
-body { font-family: Arial, sans-serif; background-color: #e6f2ff; margin: 0; padding: 20px; color: #002244; }
-.container { width: 80%; max-width: 800px; margin: auto; background: #ffffff; padding: 20px; border: 1px solid #b3d4ff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 102, 204, 0.05); }
-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-th, td { border: 1px solid #b3d4ff; padding: 8px; text-align: left; }
-th { background-color: #cce0ff; color: #003366; }
-.btn { padding: 6px 12px; cursor: pointer; text-decoration: none; border: 1px solid #99c2ff; background: #e6f2ff; color: #004488; display: inline-block; margin-top: 5px; border-radius: 4px; transition: background 0.3s, border-color 0.3s; }
-.btn:hover { background: #cce0ff; border-color: #66a3ff; }
-.msg-success { color: #28a745; font-weight: bold; margin-bottom: 10px; }
-.msg-error { color: #dc3545; font-weight: bold; margin-bottom: 10px; }
-.form-group { margin-bottom: 15px; }
-label { display: inline-block; width: 150px; font-weight: bold; color: #003366; }
-.header { text-align: center; border-bottom: 2px solid #b3d4ff; padding-bottom: 10px; margin-bottom: 20px; color: #003366; }
-.badge { font-weight: bold; color: #004488; }
-
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fffafa; margin: 0; padding: 20px; color: #333; }
+.container { width: 90%; max-width: 600px; margin: 40px auto; background: #ffffff; padding: 30px; border: 1px solid #ffcccc; border-radius: 8px; box-shadow: 0 4px 12px rgba(220, 53, 69, 0.08); display: flex; flex-direction: column; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ffcccc; padding: 12px; text-align: left; }
+th { background-color: #ffe6e6; color: #990000; font-weight: bold; }
+.btn { padding: 12px 20px; cursor: pointer; text-decoration: none; border: none; background: #dc3545; color: #ffffff; display: block; width: 100%; text-align: center; margin-top: 10px; border-radius: 4px; font-size: 16px; font-weight: bold; transition: background-color 0.3s ease; box-sizing: border-box; }
+.btn:hover { background: #c82333; }
+.msg-success { color: #28a745; font-weight: bold; margin-bottom: 15px; text-align: center; }
+.msg-error { color: #dc3545; font-weight: bold; margin-bottom: 15px; padding: 10px; background-color: #ffe6e6; border: 1px solid #ff9999; border-radius: 4px; text-align: center; }
+.form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+label { font-weight: bold; color: #990000; margin-bottom: 8px; display: block; }
+input[type="text"], input[type="password"], input[type="email"], select { padding: 12px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 16px; width: 100%; box-sizing: border-box; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+input:focus, select:focus { outline: none; border-color: #dc3545; box-shadow: 0 0 5px rgba(220, 53, 69, 0.3); }
+.header { text-align: center; border-bottom: 2px solid #ffcccc; padding-bottom: 20px; margin-bottom: 25px; color: #990000; display: flex; flex-direction: column; gap: 10px; }
+.header h1, .header h2 { margin: 0; }
+.badge { font-weight: bold; color: #dc3545; }
+a { color: #dc3545; text-decoration: none; }
+a:hover { text-decoration: underline; }
+hr { border: 0; border-top: 1px solid #ffcccc; margin: 25px 0; }
