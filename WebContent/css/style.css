@@ -1,12 +1,14 @@
-body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; }
-.container { width: 80%; max-width: 800px; margin: auto; background: white; padding: 20px; border: 1px solid #ccc; }
+body { font-family: Arial, sans-serif; background-color: #e6f2ff; margin: 0; padding: 20px; color: #002244; }
+.container { width: 80%; max-width: 800px; margin: auto; background: #ffffff; padding: 20px; border: 1px solid #b3d4ff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 102, 204, 0.05); }
 table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-th, td { border: 1px solid black; padding: 8px; text-align: left; }
-th { background-color: #ddd; }
-.btn { padding: 5px 10px; cursor: pointer; text-decoration: none; border: 1px solid black; background: #eee; color: black; display: inline-block; margin-top: 5px;}
-.msg-success { color: green; font-weight: bold; margin-bottom: 10px;}
-.msg-error { color: red; font-weight: bold; margin-bottom: 10px;}
-.form-group { margin-bottom: 10px; }
-label { display: inline-block; width: 150px; font-weight: bold; }
-.header { text-align: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
-.badge { font-weight: bold; }
+th, td { border: 1px solid #b3d4ff; padding: 8px; text-align: left; }
+th { background-color: #cce0ff; color: #003366; }
+.btn { padding: 6px 12px; cursor: pointer; text-decoration: none; border: 1px solid #99c2ff; background: #e6f2ff; color: #004488; display: inline-block; margin-top: 5px; border-radius: 4px; transition: background 0.3s, border-color 0.3s; }
+.btn:hover { background: #cce0ff; border-color: #66a3ff; }
+.msg-success { color: #28a745; font-weight: bold; margin-bottom: 10px; }
+.msg-error { color: #dc3545; font-weight: bold; margin-bottom: 10px; }
+.form-group { margin-bottom: 15px; }
+label { display: inline-block; width: 150px; font-weight: bold; color: #003366; }
+.header { text-align: center; border-bottom: 2px solid #b3d4ff; padding-bottom: 10px; margin-bottom: 20px; color: #003366; }
+.badge { font-weight: bold; color: #004488; }
+
