@@ -5,19 +5,12 @@ import java.util.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
-/**
- * AdminServlet serves the admin dashboard and handles complaint status updates.
- *
- * GET  → loads all complaints and forwards to adminDashboard.jsp
- * POST → updates complaint status & remark, then reloads the dashboard
- */
 public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Verify admin session
         HttpSession session = request.getSession(false);
         if (session == null || !"admin".equals(session.getAttribute("role"))) {
             response.sendRedirect("login.html");
@@ -37,7 +30,6 @@ public class AdminServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        // Verify admin session
         HttpSession session = request.getSession(false);
         if (session == null || !"admin".equals(session.getAttribute("role"))) {
             response.sendRedirect("login.html");
@@ -48,8 +40,8 @@ public class AdminServlet extends HttpServlet {
 
         if ("updateStatus".equals(action)) {
             String complaintId = request.getParameter("complaintId");
-            String newStatus   = request.getParameter("status");
-            String remark      = request.getParameter("remark");
+            String newStatus = request.getParameter("status");
+            String remark = request.getParameter("remark");
 
             if (complaintId == null || newStatus == null) {
                 response.sendRedirect("AdminServlet");
@@ -60,11 +52,10 @@ public class AdminServlet extends HttpServlet {
 
             try {
                 boolean updated = XMLHelper.updateComplaintStatus(
-                    complaintsFile,
-                    complaintId.trim(),
-                    newStatus.trim(),
-                    remark != null ? remark.trim() : ""
-                );
+                        complaintsFile,
+                        complaintId.trim(),
+                        newStatus.trim(),
+                        remark != null ? remark.trim() : "");
 
                 if (updated) {
                     request.setAttribute("msgType", "success");
@@ -80,7 +71,6 @@ public class AdminServlet extends HttpServlet {
             }
         }
 
-        // Reload dashboard
         doGet(request, response);
     }
 }

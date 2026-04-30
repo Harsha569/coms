@@ -5,10 +5,6 @@ import java.util.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
-/**
- * StudentDashboardServlet loads the logged-in student's complaints
- * and forwards to studentDashboard.jsp.
- */
 public class StudentDashboardServlet extends HttpServlet {
 
     @Override

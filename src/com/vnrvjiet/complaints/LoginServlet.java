@@ -5,21 +5,15 @@ import java.util.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
-/**
- * LoginServlet handles authentication for both students and admins.
- *
- * Reads credentials from users.xml, validates them, sets session attributes,
- * and redirects to the appropriate dashboard.
- */
 public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String identifier = request.getParameter("identifier"); // rollNo for student, username for admin
-        String password   = request.getParameter("password");
-        String role       = request.getParameter("role");
+        String identifier = request.getParameter("identifier");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
 
         if (identifier == null || password == null || role == null) {
             response.sendRedirect("login.html");
@@ -34,9 +28,9 @@ public class LoginServlet extends HttpServlet {
 
         Map<String, String> matchedUser = null;
         for (Map<String, String> u : users) {
-            String uRole   = u.getOrDefault("role", "student");
+            String uRole = u.getOrDefault("role", "student");
             String uRollNo = u.getOrDefault("rollNo", "");
-            String uPwd    = u.getOrDefault("password", "");
+            String uPwd = u.getOrDefault("password", "");
 
             if (role.equals(uRole) && identifier.equalsIgnoreCase(uRollNo) && password.equals(uPwd)) {
                 matchedUser = u;
@@ -45,7 +39,6 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (matchedUser != null) {
-            // Authentication successful — set session
             HttpSession session = request.getSession(true);
             session.setAttribute("userId", matchedUser.get("id"));
             session.setAttribute("rollNo", matchedUser.get("rollNo"));
@@ -54,14 +47,12 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("email", matchedUser.getOrDefault("email", ""));
             session.setAttribute("role", role);
 
-            // Redirect to the correct dashboard
             if ("admin".equals(role)) {
                 response.sendRedirect("AdminServlet");
             } else {
                 response.sendRedirect("StudentDashboardServlet");
             }
         } else {
-            // Authentication failed — redirect back with an error query param
             response.sendRedirect("login.html?error=invalid");
         }
     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <users>
-  <!-- Default admin account (username: admin, password: admin123) -->
   <user>
     <id>ADMIN001</id>
     <firstName>Admin</firstName>

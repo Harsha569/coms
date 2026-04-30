@@ -8,26 +8,11 @@ import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import org.w3c.dom.*;
 
-/**
- * Utility class for reading and writing XML files (users.xml and complaints.xml).
- * Uses DOM parsing for simplicity.
- */
 public class XMLHelper {
-
-    // ===================== FILE PATH HELPERS =====================
-
-    /**
-     * Resolves the absolute path to a data file inside WEB-INF/data/.
-     */
     public static String getDataFilePath(String servletContextPath, String filename) {
         return servletContextPath + File.separator + "WEB-INF" + File.separator + "data" + File.separator + filename;
     }
 
-    // ===================== READ =====================
-
-    /**
-     * Parses an XML file and returns the Document object.
-     */
     public static Document loadDocument(String filePath) throws Exception {
         File file = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -35,9 +20,6 @@ public class XMLHelper {
         return builder.parse(file);
     }
 
-    /**
-     * Reads all <user> elements from users.xml and returns them as a list of maps.
-     */
     public static List<Map<String, String>> readAllUsers(String filePath) {
         List<Map<String, String>> users = new ArrayList<>();
         try {
@@ -46,16 +28,16 @@ public class XMLHelper {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element el = (Element) nodeList.item(i);
                 Map<String, String> user = new LinkedHashMap<>();
-                user.put("id",        getTagValue(el, "id"));
+                user.put("id", getTagValue(el, "id"));
                 user.put("firstName", getTagValue(el, "firstName"));
-                user.put("lastName",  getTagValue(el, "lastName"));
-                user.put("rollNo",    getTagValue(el, "rollNo"));
-                user.put("branch",    getTagValue(el, "branch"));
-                user.put("year",      getTagValue(el, "year"));
-                user.put("email",     getTagValue(el, "email"));
-                user.put("phone",     getTagValue(el, "phone"));
-                user.put("password",  getTagValue(el, "password"));
-                user.put("role",      getTagValue(el, "role"));
+                user.put("lastName", getTagValue(el, "lastName"));
+                user.put("rollNo", getTagValue(el, "rollNo"));
+                user.put("branch", getTagValue(el, "branch"));
+                user.put("year", getTagValue(el, "year"));
+                user.put("email", getTagValue(el, "email"));
+                user.put("phone", getTagValue(el, "phone"));
+                user.put("password", getTagValue(el, "password"));
+                user.put("role", getTagValue(el, "role"));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -64,9 +46,6 @@ public class XMLHelper {
         return users;
     }
 
-    /**
-     * Reads all <complaint> elements from complaints.xml and returns them as a list of maps.
-     */
     public static List<Map<String, String>> readAllComplaints(String filePath) {
         List<Map<String, String>> complaints = new ArrayList<>();
         try {
@@ -75,17 +54,17 @@ public class XMLHelper {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element el = (Element) nodeList.item(i);
                 Map<String, String> c = new LinkedHashMap<>();
-                c.put("id",          getTagValue(el, "id"));
-                c.put("studentId",   getTagValue(el, "studentId"));
+                c.put("id", getTagValue(el, "id"));
+                c.put("studentId", getTagValue(el, "studentId"));
                 c.put("studentName", getTagValue(el, "studentName"));
-                c.put("rollNo",      getTagValue(el, "rollNo"));
-                c.put("branch",      getTagValue(el, "branch"));
-                c.put("email",       getTagValue(el, "email"));
-                c.put("category",    getTagValue(el, "category"));
-                c.put("subject",     getTagValue(el, "subject"));
+                c.put("rollNo", getTagValue(el, "rollNo"));
+                c.put("branch", getTagValue(el, "branch"));
+                c.put("email", getTagValue(el, "email"));
+                c.put("category", getTagValue(el, "category"));
+                c.put("subject", getTagValue(el, "subject"));
                 c.put("description", getTagValue(el, "description"));
-                c.put("status",      getTagValue(el, "status"));
-                c.put("date",        getTagValue(el, "date"));
+                c.put("status", getTagValue(el, "status"));
+                c.put("date", getTagValue(el, "date"));
                 c.put("adminRemark", getTagValue(el, "adminRemark"));
                 complaints.add(c);
             }
@@ -95,11 +74,6 @@ public class XMLHelper {
         return complaints;
     }
 
-    // ===================== WRITE =====================
-
-    /**
-     * Appends a new <user> element to users.xml.
-     */
     public static synchronized void addUser(String filePath, Map<String, String> userData) throws Exception {
         Document doc = loadDocument(filePath);
         Element root = doc.getDocumentElement();
@@ -114,9 +88,6 @@ public class XMLHelper {
         saveDocument(doc, filePath);
     }
 
-    /**
-     * Appends a new <complaint> element to complaints.xml.
-     */
     public static synchronized void addComplaint(String filePath, Map<String, String> complaintData) throws Exception {
         Document doc = loadDocument(filePath);
         Element root = doc.getDocumentElement();
@@ -131,11 +102,8 @@ public class XMLHelper {
         saveDocument(doc, filePath);
     }
 
-    /**
-     * Updates a complaint's status and adminRemark by complaint ID.
-     */
     public static synchronized boolean updateComplaintStatus(String filePath, String complaintId,
-                                                              String newStatus, String remark) throws Exception {
+            String newStatus, String remark) throws Exception {
         Document doc = loadDocument(filePath);
         NodeList nodeList = doc.getElementsByTagName("complaint");
 
@@ -151,9 +119,6 @@ public class XMLHelper {
         return false;
     }
 
-    /**
-     * Finds a single complaint by ID.
-     */
     public static Map<String, String> findComplaintById(String filePath, String complaintId) {
         List<Map<String, String>> all = readAllComplaints(filePath);
         for (Map<String, String> c : all) {
@@ -164,9 +129,6 @@ public class XMLHelper {
         return null;
     }
 
-    /**
-     * Returns complaints for a specific student (by studentId).
-     */
     public static List<Map<String, String>> getComplaintsByStudent(String filePath, String studentId) {
         List<Map<String, String>> all = readAllComplaints(filePath);
         List<Map<String, String>> result = new ArrayList<>();
@@ -178,9 +140,6 @@ public class XMLHelper {
         return result;
     }
 
-    /**
-     * Generates the next complaint ID (C001, C002, …).
-     */
     public static String generateNextComplaintId(String filePath) {
         List<Map<String, String>> all = readAllComplaints(filePath);
         int max = 0;
@@ -188,15 +147,14 @@ public class XMLHelper {
             String id = c.getOrDefault("id", "C000");
             try {
                 int num = Integer.parseInt(id.substring(1));
-                if (num > max) max = num;
-            } catch (NumberFormatException ignored) {}
+                if (num > max)
+                    max = num;
+            } catch (NumberFormatException ignored) {
+            }
         }
         return String.format("C%03d", max + 1);
     }
 
-    /**
-     * Generates the next user ID (U001, U002, …).
-     */
     public static String generateNextUserId(String filePath) {
         List<Map<String, String>> all = readAllUsers(filePath);
         int max = 0;
@@ -205,16 +163,15 @@ public class XMLHelper {
             if (id.startsWith("U")) {
                 try {
                     int num = Integer.parseInt(id.substring(1));
-                    if (num > max) max = num;
-                } catch (NumberFormatException ignored) {}
+                    if (num > max)
+                        max = num;
+                } catch (NumberFormatException ignored) {
+                }
             }
         }
         return String.format("U%03d", max + 1);
     }
 
-    /**
-     * Checks if a roll number is already registered.
-     */
     public static boolean isRollNoTaken(String filePath, String rollNo) {
         List<Map<String, String>> users = readAllUsers(filePath);
         for (Map<String, String> u : users) {
@@ -224,8 +181,6 @@ public class XMLHelper {
         }
         return false;
     }
-
-    // ===================== INTERNAL HELPERS =====================
 
     private static String getTagValue(Element parent, String tagName) {
         NodeList list = parent.getElementsByTagName(tagName);
@@ -240,7 +195,6 @@ public class XMLHelper {
         if (list.getLength() > 0) {
             list.item(0).setTextContent(value);
         } else {
-            // Create the element if it doesn't exist
             Document doc = parent.getOwnerDocument();
             Element child = doc.createElement(tagName);
             child.setTextContent(value);

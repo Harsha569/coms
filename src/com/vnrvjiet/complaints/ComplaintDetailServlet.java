@@ -5,12 +5,6 @@ import java.util.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
-/**
- * ComplaintDetailServlet loads a single complaint by ID and forwards
- * to the complaintDetail.jsp page.
- *
- * Used by both student and admin roles.
- */
 public class ComplaintDetailServlet extends HttpServlet {
 
     @Override
@@ -33,7 +27,6 @@ public class ComplaintDetailServlet extends HttpServlet {
         Map<String, String> complaint = XMLHelper.findComplaintById(complaintsFile, complaintId.trim());
 
         if (complaint == null) {
-            // Complaint not found — redirect back
             String role = (String) session.getAttribute("role");
             if ("admin".equals(role)) {
                 response.sendRedirect("AdminServlet");

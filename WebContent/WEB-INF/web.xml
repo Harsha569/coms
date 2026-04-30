@@ -7,12 +7,9 @@
 
   <display-name>VNRVJIET College Complaint System</display-name>
 
-  <!-- Welcome page -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-
-  <!-- ======== SERVLET DECLARATIONS ======== -->
 
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
@@ -49,7 +46,6 @@
     <servlet-class>com.vnrvjiet.complaints.LogoutServlet</servlet-class>
   </servlet>
 
-  <!-- ======== SERVLET MAPPINGS ======== -->
 
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>

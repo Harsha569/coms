@@ -4,9 +4,6 @@ import java.io.IOException;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
-/**
- * LogoutServlet invalidates the user session and redirects to the login page.
- */
 public class LogoutServlet extends HttpServlet {
 
     @Override
