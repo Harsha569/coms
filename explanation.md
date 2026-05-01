@@ -1,61 +1,61 @@
-# Complaint Data Storage in COMS
+# COMS File Guide
 
-This document explains the data storage mechanism for complaints within the College Complaint Management System (COMS). 
+This project is a simple Java servlet application for managing college complaints. The files are split into three main parts: source code, web pages, and XML data storage.
 
-Instead of a traditional relational database (like MySQL or PostgreSQL), the system uses an **XML-based flat-file storage mechanism**. This makes the application lightweight and easy to deploy without needing external database servers.
+## Root Files
 
-## 1. Physical Location in Source Code
+- `README.md` explains what the project does, how to set it up, and how to run it on Tomcat.
+- `explanation.md` gives a simple guide to the project structure and the role of each file.
 
-During development, the complaints are stored in a dedicated data directory inside the `WEB-INF` folder. Since files in `WEB-INF` cannot be accessed directly from the web via a browser, this provides a basic layer of security.
+## Java Source Files
 
-- **Exact Source Path:** `WebContent/WEB-INF/data/complaints.xml`
+These files contain the application logic.
 
-## 2. Runtime Location (Deployment)
+- `AdminServlet.java` loads all complaints for the admin dashboard and updates complaint status or remarks.
+- `ComplaintDetailServlet.java` opens one complaint by ID and sends it to the detail page.
+- `ComplaintServlet.java` handles student complaint submission and saves the complaint to XML.
+- `LoginServlet.java` checks user credentials, starts the session, and sends the user to the correct dashboard.
+- `LogoutServlet.java` ends the session and returns the user to the login page.
+- `RegisterServlet.java` creates a new student account and stores it in the XML user file.
+- `StudentDashboardServlet.java` loads only the logged-in student’s complaints.
+- `XMLHelper.java` is the data layer. It reads, writes, searches, and updates the XML files.
 
-When you deploy your application to a servlet container like Apache Tomcat, the application context relies on the exact runtime path to find the file.
+## Web Pages
 
-The Java utility class `XMLHelper.java` dynamically calculates the absolute path on the server where the file resides. 
+These files make up the user interface.
 
-- **Calculated Server Path:** `<TOMCAT_HOME>\webapps\<your-app-context>\WEB-INF\data\complaints.xml`
+- `index.html` is the home page with links to login and registration.
+- `login.html` is the login form for students and admins.
+- `register.html` is the student registration form.
+- `css/style.css` contains the shared styling for the whole app.
 
-If you delete or modify the source file, it will not affect the deployed application until you rebuild and redeploy it. Conversely, if users create complaints while the server is running, the complaints are saved to the Tomcat `webapps` directory, **not** your source code directory.
+## JSP Pages
 
-## 3. How the Data is Accessed
+These pages show dynamic content from the servlets.
 
-All data read/write operations are managed by `com.vnrvjiet.complaints.XMLHelper`.
+- `adminDashboard.jsp` shows all complaints and allows admins to filter and open them.
+- `complaintDetail.jsp` shows one complaint in detail and lets admins update it.
+- `studentDashboard.jsp` shows the current student’s complaints.
+- `submitComplaint.jsp` is the form students use to submit a new complaint.
+- `submitSuccess.jsp` confirms that a complaint was saved and shows the complaint ID.
 
-- **Fetching Path:** The method `XMLHelper.getDataFilePath()` takes the server's root path and builds the directory string:
-  ```java
-  public static String getDataFilePath(String servletContextPath, String filename) {
-      return servletContextPath + File.separator + "WEB-INF" + File.separator + "data" + File.separator + filename;
-  }
-  ```
-- **Adding Complaints:** `XMLHelper.addComplaint()` parses the XML file into a DOM Document, appends a new `<complaint>` element, and reserializes the tree back to the file.
-- **Updating Status:** `XMLHelper.updateComplaintStatus()` traverses the tree to find the correct `id`, modifies the `<status>` and `<adminRemark>` fields, and overwrites the file.
+## WEB-INF Files
 
-## 4. XML Structure
+These files support deployment and data storage.
 
-The `complaints.xml` file uses a straightforward node-based structure. Below is an example of what a populated file looks like after a student submits a complaint and an admin responds:
+- `web.xml` maps servlet URLs and sets the welcome page.
+- `WEB-INF/data/users.xml` stores user accounts, including the default admin user.
+- `WEB-INF/data/complaints.xml` stores all submitted complaints.
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<complaints>
-  <complaint>
-    <id>C001</id>
-    <studentId>U002</studentId>
-    <studentName>John Doe</studentName>
-    <rollNo>20071A0501</rollNo>
-    <branch>CSE</branch>
-    <email>john.doe@example.com</email>
-    <category>Academic</category>
-    <subject>Incomplete Lab Syllabus</subject>
-    <description>The week 4 assignments were not covered during the lab hours.</description>
-    <status>Resolved</status>
-    <date>2026-04-30 10:45 AM</date>
-    <adminRemark>We have scheduled an extra lab session on Saturday to cover this.</adminRemark>
-  </complaint>
-</complaints>
-```
+## Build Output
 
-> [!WARNING]
-> Because it uses an XML file, the `XMLHelper.java` synchronizes the `addComplaint` and `updateComplaintStatus` methods to prevent file corruption from concurrent read/write operations. However, this is not suitable for high-traffic production environments, where a real database would be necessary.
+- `WEB-INF/classes/` stores the compiled Java classes used by Tomcat at runtime.
+
+## How It Works
+
+1. A user opens `index.html` and chooses login or registration.
+2. The login or registration form sends data to a servlet.
+3. The servlet uses `XMLHelper.java` to read or update the XML files.
+4. The servlet forwards the user to a JSP page for the dashboard or details view.
+
+This structure keeps the app easy to understand because each file has one clear job.
